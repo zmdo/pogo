@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.outbina.dbgo.pogo.ui.RelationSchemaEditorUI">
+  <grid id="27dc6" binding="relationSchemaDesignTablePanelContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="695" height="400"/>
+    </constraints>
+    <properties>
+      <doubleBuffered value="true"/>
+      <enabled value="true"/>
+      <minimumSize width="500" height="55"/>
+    </properties>
+    <border type="none">
+      <font/>
+      <title-color color="-16777216"/>
+      <color color="-2697514"/>
+    </border>
+    <children>
+      <grid id="98e2a" binding="relationSchemaDesignToolbar" layout-manager="FlowLayout" hgap="2" vgap="2" flow-align="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="37fe2" class="javax.swing.JButton" binding="updateButton">
+            <constraints/>
+            <properties>
+              <text value="同步"/>
+            </properties>
+          </component>
+          <component id="c248d" class="javax.swing.JButton" binding="refreshButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="刷新"/>
+            </properties>
+          </component>
+          <component id="196b5" class="javax.swing.JButton" binding="saveButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="保存"/>
+            </properties>
+          </component>
+          <component id="20a9f" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <orientation value="1"/>
+              <preferredSize width="3" height="20"/>
+            </properties>
+          </component>
+          <component id="cf18e" class="javax.swing.JButton" binding="addFieldButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="添加字段"/>
+            </properties>
+          </component>
+          <component id="f60c5" class="javax.swing.JButton" binding="insertFieldButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="插入字段"/>
+            </properties>
+          </component>
+          <component id="b98f1" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <orientation value="1"/>
+              <preferredSize width="3" height="20"/>
+            </properties>
+          </component>
+          <component id="cdf30" class="javax.swing.JButton" binding="deleteFieldButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="删除字段"/>
+            </properties>
+          </component>
+          <component id="d223b" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <orientation value="1"/>
+              <preferredSize width="3" height="20"/>
+            </properties>
+          </component>
+          <component id="111c3" class="javax.swing.JButton" binding="upButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="上移"/>
+            </properties>
+          </component>
+          <component id="9088" class="javax.swing.JButton" binding="downButton" custom-create="true">
+            <constraints/>
+            <properties>
+              <text value="下移"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="1336d" binding="relationSchemaDesignTablePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="f96ed">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="3cb9" class="javax.swing.JTable" binding="relationSchemaDesignTable" custom-create="true">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="false"/>
+                  <selectionForeground color="-4473925"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
