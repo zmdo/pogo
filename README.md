@@ -37,10 +37,10 @@ PACKAGE_NAME = 'po'
 这里建议选择方法一。
 
 ---
-##How to use pogo plug-in
-###Installation method
+## How to use pogo plug-in
+### Installation method
 Direct pogo.jar Drag into GoLand and restart. For the generation method of Po object structure, please refer to the following introduction.
-####Method 1: automatic generation
+#### Method 1: automatic generation
 Use the pomaker provided for automatic generation:
 1. Please download : https://github.com/zmdo/pomaker
 2. Switch to the pomaker directory
@@ -50,25 +50,25 @@ Use the pomaker provided for automatic generation:
 
 # pomaker.py Parameters to be modified in
 
-#Project root address
+# Project root address
 PROJECT_ROOT_PATH = "E:\\goland workspaces\\project"
 
-#The output address of Po object in the project root directory
+# The output address of Po object in the project root directory
 OUTPUT_PATH = "share\\potest"
 
-#SQL file name
+# SQL file name
 SQL_FILE = " aam.sql "
 
-#Table prefix
+# Table prefix
 TABLE_PREFIX = "aam_"
 
-#The package name of the build file
+# The package name of the build file
 PACKAGE_NAME = 'po'
 
 ```
 4. Run ` Python pomaker.py `
 
-####Method 2: hand code
+#### Method 2: hand code
 Follow the README.md The naming rules, manual roll a code. If you are not willing to build according to its naming rules, at least ensure that:
 1. The go file should be in the form of po.go Is a suffix, example:“ demo.po.go ”
 2. The Po object structure in the file should end with Po, example: "DemoPO"
