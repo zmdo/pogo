@@ -1,6 +1,7 @@
 package com.outbina.dbgo.pogo.ui;
 
 import com.goide.psi.GoFile;
+import com.outbina.dbgo.i18n.PogoBundle;
 import com.outbina.dbgo.pogo.GoSqlType;
 import com.outbina.dbgo.pogo.component.IEditorContainer;
 import com.outbina.dbgo.pogo.component.PrimaryKeyEditor;
@@ -44,7 +45,17 @@ public class RelationSchemaEditorUI implements IEditorContainer {
     public static final Pattern fieldNameFormatPattern = Pattern.compile("^[A-Z]\\w*$");
 
     // 表模式
-    public static Object[] columnNames = {"Go变量名","数据库列名", "SQL类型(Go类型)", "长度", "小数点", "不是null","键","注释"};
+    //public static Object[] columnNames = {"Go变量名","数据库列名", "SQL类型(Go类型)", "长度", "小数点", "不是null","键","注释"};
+    public static Object[] columnNames = {
+            PogoBundle.message("pogo.table.column.goFieldName"),
+            PogoBundle.message("pogo.table.column.sqlFieldName"),
+            PogoBundle.message("pogo.table.column.type"),
+            PogoBundle.message("pogo.table.column.length"),
+            PogoBundle.message("pogo.table.column.dot"),
+            PogoBundle.message("pogo.table.column.notNull"),
+            PogoBundle.message("pogo.table.column.primaryKey"),
+            PogoBundle.message("pogo.table.column.comment"),};
+
     public static final int COL_GO_FIELD      = 0;
     public static final int COL_DB_FIELD      = 1;
     public static final int COL_TYPE          = 2;

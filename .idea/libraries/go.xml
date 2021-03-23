@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="go">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../../Program Files/JetBrains/GoLand 2020.3.3/plugins/go/lib" />
+      <root url="file://D:/GoLand/GoLand 2020.1.1/plugins/go/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://$PROJECT_DIR$/../../../Program Files/JetBrains/GoLand 2020.3.3/plugins/go/lib" recursive="false" />
+    <jarDirectory url="file://D:/GoLand/GoLand 2020.1.1/plugins/go/lib" recursive="false" />
   </library>
 </component>
