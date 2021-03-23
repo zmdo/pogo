@@ -69,10 +69,11 @@ PACKAGE_NAME = 'po'
 4. Run ` Python pomaker.py `
 
 #### Method 2: hand code
-Follow the README.md The naming rules, manual roll a code. If you are not willing to build according to its naming rules, at least ensure that:
+Follow the pomaker [README.md](https://github.com/zmdo/pomaker/blob/master/README.md) The naming rules, manual roll a code. If you are not willing to build according to its naming rules, at least ensure that:
 1. The go file should be in the form of po.go Is a suffix, example:“ demo.po.go ”
-2. The Po object structure in the file should end with Po, example: "DemoPO"
-3. The file has and can only have one PO object structure (mainly because only one PO object structure can be read at present)
+2. The Po object structure in the file should end with PO, example: "DemoPO"
+3. The file has and can only have one PO structure (mainly because only one PO structure can be read at present)
+
 It is suggested to choose method one.
 
 
