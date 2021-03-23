@@ -66,7 +66,7 @@ TABLE_PREFIX = "aam_"
 PACKAGE_NAME = 'po'
 
 ```
-4. Run ` Python pomaker.py `
+4. Run ` python pomaker.py `
 
 #### Method 2: hand code
 Follow the pomaker [README.md](https://github.com/zmdo/pomaker/blob/master/README.md) The naming rules, manual roll a code. If you are not willing to build according to its naming rules, at least ensure that:
