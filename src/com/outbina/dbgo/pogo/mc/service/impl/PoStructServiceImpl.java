@@ -46,7 +46,7 @@ public class PoStructServiceImpl implements PoStructService {
                 synchronized (goFile) {
 
                     // 创建一个声明
-                    String structFieldDefine = newGoFieldName + " string `gorm:\"column:" + newDBFieldName + ";type:varchar(0)\" json:\"" + newDBFieldName + "\"`";
+                    String structFieldDefine = newGoFieldName + " string `gorm:\"column:" + newDBFieldName + ";type:varchar\" json:\"" + newDBFieldName + "\"`";
                     GoFieldDeclaration goFieldDeclaration = GoElementExpandFactory.createGoFieldDeclaration(project,structFieldDefine);
 
                     // 查找所需要添加的位置的声明

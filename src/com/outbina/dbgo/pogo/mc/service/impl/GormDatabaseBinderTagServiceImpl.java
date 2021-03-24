@@ -164,13 +164,18 @@ public class GormDatabaseBinderTagServiceImpl implements DatabaseBinderTagServic
                 Integer length = dbFieldInfoBean.getLength();
                 Integer dot = dbFieldInfoBean.getDot();
 
-                if (dot > 0) {
-                    gormType = String.format("type:%s(%d.%d)",sqlType,length,dot);
-                } else {
-                    gormType = String.format("type:%s(%d)",sqlType,length);
-                }
-
                 newGormText = GormHelper.remove(newGormText, GormConst.TYPE + "\\s*:\\s*[^;]*" );
+
+                if ( dot > 0 ) {
+                    if (length < 0) {
+                        length = 0;
+                    }
+                    gormType = String.format("type:%s(%d.%d)",sqlType,length,dot);
+                } else if (length >= 0 && dot <= 0) {
+                    gormType = String.format("type:%s(%d)",sqlType,length);
+                } else {
+                    gormType = String.format("type:%s",sqlType);
+                }
                 newGormText = GormHelper.add(newGormText,gormType);
 
                 // 替换原来的go类型
