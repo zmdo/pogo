@@ -215,7 +215,7 @@ public class RelationSchemaEditorUI implements IEditorContainer {
             sqlType = null;
         }
 
-        Integer len = null;
+        Integer len ;
         Object lenObj = model.getValueAt(modifiedIndex, COL_LENGTH);
         if (lenObj != null && lenObj != "") {
             len = Integer.parseInt(lenObj.toString());
@@ -307,6 +307,10 @@ public class RelationSchemaEditorUI implements IEditorContainer {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(tableData == null) {
+                    return;
+                }
+
                 Object[] NewRowData = createNewRowData();
                 tableData.add(NewRowData);
                 tableModel.addRow(NewRowData);
@@ -320,6 +324,11 @@ public class RelationSchemaEditorUI implements IEditorContainer {
         insertFieldButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if(tableData == null) {
+                    return;
+                }
+
                 int rowIndex = relationSchemaDesignTable.getSelectedRow();
                 Object[] NewRowData = createNewRowData();
                 if(rowIndex < 0) {
@@ -339,6 +348,11 @@ public class RelationSchemaEditorUI implements IEditorContainer {
         deleteFieldButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if(tableData == null) {
+                    return;
+                }
+
                 int[] rowIndexes = relationSchemaDesignTable.getSelectedRows();
                 if (rowIndexes.length <= 0) return; // 如果没有选中那么不做处理
 
@@ -377,6 +391,10 @@ public class RelationSchemaEditorUI implements IEditorContainer {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(tableData == null) {
+                    return;
+                }
+
                 int[] rowIndexes = relationSchemaDesignTable.getSelectedRows();
                 if (rowIndexes.length <= 0) return; // 如果没有选中那么不做处理
 
@@ -412,7 +430,13 @@ public class RelationSchemaEditorUI implements IEditorContainer {
         downButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if(tableData == null) {
+                    return;
+                }
+
                 int[] rowIndexes = relationSchemaDesignTable.getSelectedRows();
+                if (rowIndexes.length <= 0) return; // 如果没有选中那么不做处理
 
                 // 检查连续性
                 Arrays.sort(rowIndexes);
@@ -540,7 +564,15 @@ public class RelationSchemaEditorUI implements IEditorContainer {
 
         // 获取go文件本身
         goFile = (GoFile)PsiManager.getInstance(project).findFile(virtualFile);
-        PoTableBean poTableBean =  relationSchemaEditorController.getPoTableBean(goFile).get(0);
+
+        List<PoTableBean> poTableBeans = relationSchemaEditorController.getPoTableBean(goFile);
+        PoTableBean poTableBean ;
+
+        if(poTableBeans != null && !poTableBeans.isEmpty()) {
+            poTableBean = poTableBeans.get(0);
+        } else {
+            return;
+        }
 
         this.poStructName = poTableBean.getTableName();
         RelationSchemaTableRowBean[] fieldBeans = poTableBean.getFieldBeans();
