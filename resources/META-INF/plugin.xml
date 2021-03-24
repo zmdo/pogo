@@ -2,12 +2,12 @@
   <id>com.outbina.pogo</id>
   <name>pogo</name>
   <version>1.0.1</version>
-  <vendor email="zmgithub@163.com" url="http://www.outbina.com">zmdo</vendor>
+  <vendor email="zmgithub@163.com">zmdo</vendor>
   <description>
     In go programming, the plug-in can generate visual interface for persistent object structure of database.
   </description>
 
-  <idea-version since-build="173.0"/>
+  <idea-version since-build="201.0"/>
 
   <!-- 依赖IDEA平台的插件 -->
   <depends>com.intellij.modules.platform</depends>
