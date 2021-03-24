@@ -217,18 +217,32 @@ public class RelationSchemaEditorUI implements IEditorContainer {
 
         Integer len ;
         Object lenObj = model.getValueAt(modifiedIndex, COL_LENGTH);
-        if (lenObj != null && lenObj != "") {
-            len = Integer.parseInt(lenObj.toString());
+        if (lenObj != null && !lenObj.toString().trim().isEmpty()) {
+            try {
+                len = Integer.parseInt(lenObj.toString());
+                if(len < 0) {
+                    len = 0;
+                }
+            } catch (NumberFormatException e) {
+                len = 0;
+            }
         } else {
-            len = 0;
+            len = -1;
         }
 
         Integer dot = null;
         Object dotObj = model.getValueAt(modifiedIndex, COL_DOT);
-        if (dotObj != null && dotObj != "") {
-            dot = Integer.parseInt(dotObj.toString());
+        if (dotObj != null && !dotObj.toString().trim().isEmpty()) {
+            try {
+                dot = Integer.parseInt(dotObj.toString());
+                if(dot < 0) {
+                    dot = 0;
+                }
+            } catch (NumberFormatException e) {
+                dot = 0;
+            }
         } else {
-            len = 0;
+            dot = -1;
         }
 
         DatabaseFieldInfoBean databaseFieldInfoBean = new DatabaseFieldInfoBean(
@@ -497,7 +511,7 @@ public class RelationSchemaEditorUI implements IEditorContainer {
         newRowData[COL_GO_FIELD] = newGoFieldName;
         newRowData[COL_DB_FIELD] = newDBFieldName;
         newRowData[COL_TYPE] = SqlAndGoTypes[6]; // varchar(string)
-        newRowData[COL_LENGTH] = 0;
+        newRowData[COL_LENGTH] = "";
         newRowData[COL_DOT] = 0;
         newRowData[COL_NOT_NULL] = false;
         newRowData[COL_KEY] = false;
@@ -586,8 +600,8 @@ public class RelationSchemaEditorUI implements IEditorContainer {
             rowData[COL_GO_FIELD] = fieldBean.getGoFieldName();
             rowData[COL_DB_FIELD] = fieldBean.getDbFieldName();
             rowData[COL_TYPE] = fieldBean.getDbFieldType() + "(" + fieldBean.getGoFieldType() + ")";
-            rowData[COL_LENGTH] = fieldBean.getLength() == -1 ? "" : fieldBean.getLength();
-            rowData[COL_DOT] = fieldBean.getDot();
+            rowData[COL_LENGTH] = fieldBean.getLength() < 0 ? "" : fieldBean.getLength();
+            rowData[COL_DOT] = fieldBean.getDot() < 0 ? "" : fieldBean.getDot();
             rowData[COL_NOT_NULL] = fieldBean.getNotNull();
             rowData[COL_KEY] = fieldBean.getPrimaryKey();
             rowData[COL_FIELD_COMMENT] = fieldBean.getComment();
