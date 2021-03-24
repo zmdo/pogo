@@ -80,4 +80,14 @@ public interface RelationSchemaEditorController {
      * @param dbFieldInfoBean
      */
     public void modifyTag(@NotNull GoFile file,@NotNull String goStructName,@NotNull String goFieldName,@NotNull DatabaseFieldInfoBean dbFieldInfoBean);
+
+    /**
+     *
+     * @param file
+     * @param goStructName
+     * @param start
+     * @param end
+     * @param up
+     */
+    public void moveRow(@NotNull GoFile file,@NotNull String goStructName,@NotNull int start,@NotNull int end,@NotNull boolean up);
 }

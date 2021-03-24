@@ -214,4 +214,15 @@ public class RelationSchemaEditorControllerImpl implements RelationSchemaEditorC
 
     }
 
+    @Override
+    public void moveRow(@NotNull GoFile file, @NotNull String goStructName, @NotNull int start, @NotNull int end, @NotNull boolean up) {
+        GoStructType structType = structScanService.scan(file,goStructName);
+        Runnable task = structService.moveRow(file,structType,start,end,up);
+
+        // 执行任务
+        if(task != null) {
+            WriteCommandAction.runWriteCommandAction(file.getProject(),task);
+        }
+    }
+
 }

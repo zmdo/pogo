@@ -429,6 +429,10 @@ public class RelationSchemaEditorUI implements IEditorContainer {
                     }
 
                     // 移动
+                    moveRow(start,end,true);
+                    // update();
+
+                    // 移动
                     tableModel.moveRow(start,end,start - 1);
                     // 清除选择
                     relationSchemaDesignTable.getSelectionModel().clearSelection();
@@ -466,6 +470,11 @@ public class RelationSchemaEditorUI implements IEditorContainer {
                     for(int i = end ; i >= start ; i --) {
                         Collections.swap(tableData , i , i + 1);
                     }
+
+                    // 移动
+                    moveRow(start,end,false);
+                    // update();
+
                     // 移动
                     tableModel.moveRow(start,end,start + 1);
                     // 清除选择
@@ -487,6 +496,11 @@ public class RelationSchemaEditorUI implements IEditorContainer {
                 modifiedFlag = false;
             }
         });
+    }
+
+    // TODO 移动
+    private void moveRow(int start,int end,boolean up) {
+        relationSchemaEditorController.moveRow(goFile,poStructName,start,end,up);
     }
 
     /**

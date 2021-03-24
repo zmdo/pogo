@@ -116,4 +116,14 @@ public interface PoStructService {
      */
     public Runnable setTagValue(@NotNull GoFile goFile ,@NotNull GoStructType goStructType,@NotNull String goFieldName,@NotNull String key,@NotNull String value);
 
+    /**
+     *
+     * @param file
+     * @param goStructType
+     * @param start
+     * @param end
+     * @param up
+     * @return
+     */
+    public Runnable moveRow(@NotNull GoFile file,@NotNull GoStructType goStructType,@NotNull int start,@NotNull int end,@NotNull boolean up);
 }

@@ -15,6 +15,8 @@ import com.intellij.refactoring.RenameRefactoring;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,29 +65,21 @@ public class PoStructServiceImpl implements PoStructService {
                         // 往前添加换行
                         anchorFieldDeclaration.addAfter(goFieldDeclaration,null);
                     } else {
-
-                        PsiComment comment = null;
                         // 寻找注释的定义
-                        PsiElement next = anchorFieldDeclaration.getNextSibling();
-                        while (true) {
-                            if(next == null) {
-                                break;
-                            } else if (next instanceof PsiComment) {
-                                // 获取注释
-                                comment = GoElementFactory.createComment(project,next.getText());
-                                // 注释删掉
-                                next.delete();
-                                break;
-                            } else {
-                                next = next.getNextSibling();
-                            }
+                        PsiComment anchorFieldComment = GoCommentFinder.find(anchorFieldDeclaration);
+                        PsiComment anchorFieldCommentCopy = null;
+                        if (anchorFieldComment != null) {
+                            // 获取注释
+                            anchorFieldCommentCopy = GoElementFactory.createComment(project,anchorFieldComment.getText());
+                            // 注释删掉
+                            anchorFieldComment.delete();
                         }
 
                         // 这里需要重新实现一次这个东西，特别麻烦
                         // 因为他的API有一些问题，所以只能这么做
                         PsiElement anchor = GoElementExpandFactory.createGoFieldDeclaration(project,anchorFieldDeclaration.getText());
-                        if (comment != null) {
-                            anchor.addBefore(comment,null);
+                        if (anchorFieldCommentCopy != null) {
+                            anchor.addBefore(anchorFieldCommentCopy,null);
                         }
                         anchor.addBefore(newLine,null);
                         anchorFieldDeclaration.replace(goFieldDeclaration).addAfter(anchor,null);
@@ -339,5 +333,91 @@ public class PoStructServiceImpl implements PoStructService {
         }
         return modifyGoFieldTag(goFile,goStructType,goFieldName,newTag);
 
+    }
+
+    @Override
+    public Runnable moveRow(@NotNull GoFile goFile, @NotNull GoStructType goStructType, @NotNull int start, @NotNull int end, @NotNull boolean up) {
+        // 获取当前所操作的项目
+        Project project = goFile.getProject();
+
+        return new Runnable() {
+            @Override
+            public void run() {
+                synchronized (goFile) {
+
+                    // 获取所有结构体内的字段声明
+                    List<GoFieldDeclaration> goFieldDeclarationList = goStructType.getFieldDeclarationList();
+                    PsiElement newLine = GoElementFactory.createNewLine(project);
+
+                    // 进行移动
+                    if (up) { // 向上移动
+                        // 获取第一个的上面一个fieldA 和 要移动的最后一个fieldB
+                        GoFieldDeclaration fieldA = goFieldDeclarationList.get(start - 1);
+                        GoFieldDeclaration fieldB = goFieldDeclarationList.get(end);
+
+                        // 将 fieldA 放到 fieldB 的下面
+
+                        // 查找fieldA 注释, 及构建fieldA 注释的复制体
+                        PsiComment fieldAComment = GoCommentFinder.find(fieldA);
+                        PsiComment fieldACommentCopy = null;
+                        if(fieldAComment != null) {
+                            fieldACommentCopy = GoElementFactory.createComment(project,fieldAComment.getText());
+                            fieldAComment.delete();
+                        }
+                        // 构建fieldA 的复制体
+                        GoFieldDeclaration fieldACopy = GoElementExpandFactory.createGoFieldDeclaration(project,fieldA.getText());
+                        fieldA.delete();
+
+                        // 查找fieldB 注释, 及构建fieldB 注释的复制体
+                        PsiComment fieldBComment = GoCommentFinder.find(fieldB);
+                        PsiComment fieldBCommentCopy = null;
+                        if(fieldBComment != null) {
+                            fieldBCommentCopy = GoElementFactory.createComment(project,fieldBComment.getText());
+                            fieldBComment.delete();
+                        }
+                        // 构建fieldB 的复制体
+                        GoFieldDeclaration fieldBCopy = GoElementExpandFactory.createGoFieldDeclaration(project,fieldB.getText());
+
+                        // 替换
+                        PsiElement element = fieldB.replace(fieldACopy);
+
+                        // 添加数据
+                        if (fieldBCommentCopy != null) {
+                            fieldBCopy.addBefore(fieldBCommentCopy,null);
+                        }
+                        fieldBCopy.addBefore(newLine,null);
+                        element.addAfter(fieldBCopy,null);
+                        if(fieldACommentCopy != null) {
+                            element.addBefore(fieldACommentCopy,null);
+                        }
+                    } else { // 向下移动
+                        // 获取最后一个的下面一个fieldA 和 要移动的第一个fieldB
+                        GoFieldDeclaration fieldA = goFieldDeclarationList.get(end + 1);
+                        GoFieldDeclaration fieldB = goFieldDeclarationList.get(start);
+
+                        //将fieldA 放到 fieldB 的上面
+                        // 查找fieldA 注释
+                        PsiComment comment = GoCommentFinder.find(fieldA);
+                        PsiComment fieldACommentCopy = null;
+                        if(comment != null) {
+                            fieldACommentCopy = GoElementFactory.createComment(project,comment.getText());
+                            comment.delete();
+                        }
+
+                        // 构建fieldA 的复制体
+                        GoFieldDeclaration fieldACopy = GoElementExpandFactory.createGoFieldDeclaration(project,fieldA.getText());
+                        fieldA.delete();
+
+                        // 添加数据
+                        if (fieldACommentCopy != null) {
+                            fieldACopy.addBefore(fieldACommentCopy,null);
+                        }
+                        fieldACopy.addBefore(newLine,null);
+                        fieldB.addAfter(fieldACopy,null);
+
+                    }
+                }
+            }
+        };
     }
 }
